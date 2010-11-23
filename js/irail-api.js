@@ -8,7 +8,7 @@ if (IRail) {
 }
 
 var IRail = (function(){
-	var baseUrl = 'http://dev.api.irail.be';
+	var baseUri = 'http://dev.api.irail.be';
 
 	var uniqueGlobalNameCounter = {};
 	var uniqueGlobalName = function(name) {
@@ -57,25 +57,33 @@ var IRail = (function(){
 		// - departure;    string;    required;  name of the station of departure
 		// - arrival;      string;    required;  name of the station of arrival
 		// - success;      function;  required;  callback in case of success
+		// - departAt;     date;      this or arriveAt is required;  the prefered time of departure
+		// - arriveAt;     date;      this or departAt is required;  the prefered time of arrival
 		// - limit;        number;    optional, default=3;  the amount of results to return; this is not guaranteed: if 2 connections have the same arrival time, they will be counted as 1
 		// TODO
 		// - error;        function;  optional;  callback in case of error
-		// - departAt;     date;      this or arriveAt is required;  the prefered time of departure
-		// - arriveAt;     date;      this or departAt is required;  the prefered time of arrival
 		// - transport;    array of strings;  optional;  possible values ['train', 'bus', 'taxi'];  methods of transportation which are acceptable
 		connections : function(args) {
-			if (!args['departure'])    {throw('Missing argument "departure"');}
-			if (!args['arrival'])      {throw('Missing argument "arrival"');}
-		
-			// if (args['departure'] && args['arrival'])
-			// &date=311210&time=2359&timeSel=arrive or depart&typeOfTransport=train;bus;taxi 
+			if (!args['departure']) {throw('Missing argument "departure"');}
+			if (!args['arrival'])   {throw('Missing argument "arrival"');}
+			if (!args['departAt'] && !args['arriveAt']) {throw('Missing argument "departAt" or "arriveAt"');}
 		
 			if (!args['success']) {throw('Missing argument "success"');}
 
 			var limit = args['limit'] || 3;
+			var date  = (args['departAt'] || args['arriveAt']);
+
+			var uri = baseUri+'/connections/?format=json'+
+				'&from='+encodeURIComponent(args['departure'])+
+				'&to='+encodeURIComponent(args['arrival'])+
+				'&date='+_.t(date, 'ddmmyy')+
+				'&time='+_.t(date, 'mmhh')+
+				'&timeSel='+(args['departAt'] ? 'depart' : 'arrive')+
+				'&results='+limit;
+				// typeOfTransport=train;bus;taxi 
 
 			insertScript(
-				baseUrl+'/connections/?format=json&from='+args['departure']+'&to='+args['arrival']+'&results='+limit,
+				uri,
 				function(data) {
 					args['success'](processResponseConnections(data));
 				}

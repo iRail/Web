@@ -20,11 +20,56 @@
 			<form id="form">
 				<p>
 					<label for="departure">From</label>
-					<input type="text" class="text" name="departure" value="brussel noord" />
+					<input type="text" class="text" name="departure" value="" />
 				</p>
 				<p>
 					<label for="arrival">To</label>
-					<input type="text" class="text" name="arrival" value="brussel zuid" />
+					<input type="text" class="text" name="arrival" value="" />
+				</p>
+				<p class="radio">
+					<input type="radio" class="radio" name="departure-or-arrival" value="departure" /> 
+					<label for="departure-or-arrival">Depart at</label>
+					<input type="radio" class="radio" name="departure-or-arrival" value="arrival" checked="checked" /> 
+					<label for="departure-or-arrival">Arrive at</label>
+				</p>
+				<% var now = new Date(),
+					day    = now.getDate(),
+					month  = (now.getMonth()+1),
+					year   = now.getFullYear(),
+					hour   = now.getHours(),
+					minute = Math.ceil(now.getMinutes()/5)*5;
+				%>
+				<p>
+					<select name="day">
+					<% for (var i=1; i<=31; i++) { %>
+						<option<%= (day==i ? ' selected="selected"' : '') %>><%= i %></option>
+					<% } %>
+					</select>
+					 / 
+					<select name="month">
+					<% for (var i=1; i<=12; i++) { %>
+						<option<%= (month==i ? ' selected="selected"' : '') %>><%= i %></option>
+					<% } %>
+					</select>
+					 / 
+					<select name="year">
+					<% for (var i=year; i<=year+1; i++) { %>
+						<option<%= (year==i ? ' selected="selected"' : '') %>><%= i %></option>
+					<% } %>
+					</select>
+				</p>
+				<p>
+					<select name="hour">
+					<% for (var i=0; i<=23; i++) { %>
+						<option<%= (hour==i ? ' selected="selected"' : '') %>><%= i %></option>
+					<% } %>
+					</select>
+					 : 
+					<select name="minute">
+					<% for (var i=0; i<=59; i+=5) { %>
+						<option<%= (minute==i ? ' selected="selected"' : '') %>><%= i %></option>
+					<% } %>
+					</select>
 				</p>
 				<p>
 					<input type="submit" class="submit" value="Search">
@@ -41,9 +86,9 @@
 				<tbody>
 					<tr>
 						<td>
-							<span class="departure"><%= _.t(connection[i].departure.time) %></span>
-							<span class="arrival"><%= _.t(connection[i].arrival.time) %></span>
-							<span class="duration"><%= _.t(connection[i].duration) %></span>
+							<span class="departure"><%= _.t(connection[i].departure.time, 'hh:mm') %></span>
+							<span class="arrival"><%= _.t(connection[i].arrival.time, 'hh:mm') %></span>
+							<span class="duration"><%= _.t(connection[i].duration, 'hh:mm') %></span>
 						</td>
 					</tr>
 					<tr class="departure">

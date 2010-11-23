@@ -3,9 +3,26 @@
 // util.js: some handy functions, cuz I couldn't find a light enough library
 
 var _ = {
-	t : function(time) {
-		var time = time.getUTCHours ? time : new Date(time*1000);
-		return (time.getUTCHours()<10?'0':'')+time.getUTCHours()+':'+(time.getUTCMinutes()<10?'0':'')+time.getUTCMinutes();
+	t : function(time, format) {
+		// as long as we don'd need more than a handful of formats, this is acceptable
+		var time = time.getHours ? time : new Date(time*1000);
+		switch (format) {
+			case 'ddmmyy':
+				return _.padZeroes(time.getDate())+_.padZeroes(time.getMonth()+1)+(time.getYear()%100);
+				break;
+			case 'mmhh':
+				return _.padZeroes(time.getHours())+_.padZeroes(time.getMinutes());
+				break;
+			case 'hh:mm':
+			default:
+				return _.padZeroes(time.getHours())+':'+_.padZeroes(time.getMinutes());
+				break;
+		}
+	},
+	padZeroes : function(number, places) {
+		var n, places=places||2;
+		for (n=number.toString(); n.length<places; n='0'+n){}
+		return n;
 	},
 	h : function(text) {
 		return text.replace('&', '&amp;').replace('<', '&lt;');
