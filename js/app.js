@@ -13,15 +13,9 @@ window.onload = function() {
 			'from'    : from.value,
 			'to'      : to.value,
 			'success' : function(data) {
-				update('results', data);
+				_.update('results', data);
 			}
 		});
 		return false;
 	}
-	
-	var update = function(name, data) {
-		console.log(data)
-		var el = document.getElementById(name);
-		el.innerHTML = tmpl(name+'_template', data);
-	};
 }
