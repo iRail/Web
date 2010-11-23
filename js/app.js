@@ -27,6 +27,10 @@ var App = function() {
 		var departureOrArrival = form['departure-or-arrival'];
 
 		form.onsubmit = function() {
+			if (!departure.value || !arrival.value) {
+				return false;
+			}
+			
 			var date = new Date(year.value, (month.value-1), day.value, hour.value, minute.value);
 			
 			var departureOrArrivalValue;
