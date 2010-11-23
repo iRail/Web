@@ -112,3 +112,7 @@ table.results span.arrival:before {
 table.results span.duration {
 	float:right;
 }
+
+table.results span.delay {
+	color:#FA6900;
+}

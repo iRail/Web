@@ -21,11 +21,11 @@
 			<form id="form">
 				<p>
 					<label for="departure">From</label>
-					<input type="text" class="text" name="departure" value="" />
+					<input type="text" class="text" name="departure" value="brussel noord" />
 				</p>
 				<p>
 					<label for="arrival">To</label>
-					<input type="text" class="text" name="arrival" value="" />
+					<input type="text" class="text" name="arrival" value="haacht" />
 				</p>
 				<p class="radio">
 					<input type="radio" class="radio" name="departure-or-arrival" value="departure" /> 
@@ -88,9 +88,21 @@
 				<tbody>
 					<tr>
 						<td>
-							<span class="departure"><%= _.t(connection[i].departure.time, 'hh:mm') %></span>
-							<span class="arrival"><%= _.t(connection[i].arrival.time, 'hh:mm') %></span>
-							<span class="duration"><%= _.t(connection[i].duration, 'hh:mm') %></span>
+							<span class="departure">
+								<%= _.t(connection[i].departure.time, 'hh:mm') %>
+								<% if (connection[i].departure.delay>0) { %>
+								<span class="delay">+<%= connection[i].departure.delay %></span>
+								<% } %>
+							</span>
+							<span class="arrival">
+								<%= _.t(connection[i].arrival.time, 'hh:mm') %>
+								<% if (connection[i].arrival.delay>0) { %>
+								<span class="delay">+<%= connection[i].arrival.delay %></span>
+								<% } %>
+							</span>
+							<span class="duration">
+								<%= _.t(connection[i].duration, 'hh:mm') %>
+							</span>
 						</td>
 					</tr>
 					<tr class="departure">
