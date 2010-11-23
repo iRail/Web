@@ -29,11 +29,41 @@ table {
 	border-spacing: 0;
 }
 
-/* todo */
+/* global layout and typography */
+body {
+	width:312px;
+	background:#E0E4CC;
+	padding:4px;
+	font-family: Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color:#222;
+	font-size:18px;
+}
+
+/* search */
+form p {
+	margin:0 0 2px 0;
+}
+
+label {
+	display:block;
+	float:left;
+	width:50px;
+}
+input.text {
+	background:#A7DBD8;
+	border:solid 1px #95C4C1;
+	width:260px;
+}
+label,
+input.text {
+	height:20px;
+	line-height:20px;
+}
 
 /* results */
 table.results {
 	margin:10px 0;
+	width:312px;
 }
 table.results td {
 	padding:1px 2px;
@@ -41,9 +71,25 @@ table.results td {
 
 table.results,
 table.results td {
-	border:solid 1px #333;
+	border:solid 1px #F38630;
+	color:#FFF;
+	background:#5EBCCF;
+}
+
+table.results .departure td,
+table.results .via td,
+table.results .arrival td {
+	color:#5EBCCF;
+	background:#E0E4CC;
 }
 
 table.results .via td {
-	color:#666;
+	color:#95C4C1;
+}
+
+table.results span.arrival:before {
+	content: '\2192';
+}
+table.results span.duration {
+	float:right;
 }

@@ -18,14 +18,14 @@
 			<form id="form">
 				<p>
 					<label for="from">From</label>
-					<input type="text" name="from" value="brussel noord" />
+					<input type="text" class="text" name="from" value="brussel noord" />
 				</p>
 				<p>
 					<label for="to">To</label>
-					<input type="text" name="to" value="brussel zuid" />
+					<input type="text" class="text" name="to" value="brussel zuid" />
 				</p>
 				<p>
-					<input type="submit" value="Search">
+					<input type="submit" class="submit" value="Search">
 				</p>
 			</form>
 		</div>
@@ -33,24 +33,27 @@
 		</div>
 		
 		<script type="text/html" id="results_template">
+			<!-- Tables? I hear you ask. You are welcome to fix it. -->
 			<% for (var i=0; i<connection.length; i++) { %>
 			<table cellspacing="0" class="results">
 				<tbody>
 					<tr>
-						<td><%= _.t(connection[i].departure.time) %></td>
-						<td><%= _.t(connection[i].arrival.time) %></td>
-						<td><%= _.t(connection[i].duration) %></td>
+						<td>
+							<span class="departure"><%= _.t(connection[i].departure.time) %></span>
+							<span class="arrival"><%= _.t(connection[i].arrival.time) %></span>
+							<span class="duration"><%= _.t(connection[i].duration) %></span>
+						</td>
 					</tr>
 					<tr class="departure">
-						<td colspan="3"><%= _.h(connection[i].departure.station) %></td>
+						<td><%= _.h(connection[i].departure.station) %></td>
 					</tr>
 					<% for (var j=0; j<connection[i].vias.via.length; j++) { %>
 					<tr class="via">
-						<td colspan="3"><%= _.h(connection[i].vias.via[j].station) %></td>
+						<td><%= _.h(connection[i].vias.via[j].station) %></td>
 					</tr>
 					<% } %>
 					<tr class="arrival">
-						<td colspan="3"><%= _.h(connection[i].arrival.station) %></td>
+						<td><%= _.h(connection[i].arrival.station) %></td>
 					</tr>
 				</tbody>
 			</table>
