@@ -43,6 +43,7 @@ var App = function() {
 				'arriveAt'  : (departureOrArrivalValue=='arrival'   ? date : undefined),
 				'success'   : function(data) {
 					_.update('results', data);
+					document.location.hash = "results";
 				}
 			});
 			return false;
