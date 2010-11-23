@@ -11,24 +11,30 @@
 	</head>
 	<body>
 		<div id="search">
+		</div>
+		<div id="results">
+		</div>
+
+		<script type="text/html" id="search_template">
+		<![CDATA[
 			<form id="form">
 				<p>
-					<label for="from">From</label>
-					<input type="text" class="text" name="from" value="brussel noord" />
+					<label for="departure">From</label>
+					<input type="text" class="text" name="departure" value="brussel noord" />
 				</p>
 				<p>
-					<label for="to">To</label>
-					<input type="text" class="text" name="to" value="brussel zuid" />
+					<label for="arrival">To</label>
+					<input type="text" class="text" name="arrival" value="brussel zuid" />
 				</p>
 				<p>
 					<input type="submit" class="submit" value="Search">
 				</p>
 			</form>
-		</div>
-		<div id="results">
-		</div>
+		]]>
+		</script>
 		
 		<script type="text/html" id="results_template">
+		<![CDATA[
 			<!-- Tables? I hear you ask. You are welcome to fix it. -->
 			<% for (var i=0; i<connection.length; i++) { %>
 			<table cellspacing="0" class="results">
@@ -54,6 +60,7 @@
 				</tbody>
 			</table>
 			<% } %>
+		]]>
 		</script>
 	</body>
 </html>

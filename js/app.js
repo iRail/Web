@@ -3,19 +3,36 @@
 // IRail.data: Non-dynamic data used in the iRail client
 // Railway station data sourced from original iRail client
 
-window.onload = function() {
-	var form = document.getElementById('form');
-	var from = form['from'];
-	var to   = form['to'];
+(function(){
+
+var App = function() {
 	
-	form.onsubmit = function() {
-		IRail.connections({
-			'from'    : from.value,
-			'to'      : to.value,
-			'success' : function(data) {
-				_.update('results', data);
-			}
-		});
-		return false;
-	}
-}
+	var initialize = function() {
+		this.search();
+	};
+		
+	this.search = function() {
+		_.update('search');
+		
+		var form = document.getElementById('form');
+		var departure = form['departure'];
+		var arrival   = form['arrival'];
+
+		form.onsubmit = function() {
+			IRail.connections({
+				'departure' : departure.value,
+				'arrival'   : arrival.value,
+				'success'   : function(data) {
+					_.update('results', data);
+				}
+			});
+			return false;
+		}
+	};
+	
+	initialize.apply(this, arguments);
+};
+
+window.onload = function(){new App();};
+
+})();

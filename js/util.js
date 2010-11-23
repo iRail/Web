@@ -12,14 +12,16 @@ var _ = {
 	},
 	update : function(name, data) {
 		var el = document.getElementById(name);
-		el.innerHTML = _.template(name+'_template', data);
+		el.innerHTML = _.template(name+'_template', data||{});
 	}
 };
 
 // Simple JavaScript Templating
 // John Resig - http://ejohn.org/ - MIT Licensed
 // http://ejohn.org/blog/javascript-micro-templating/
-// Mathias Baert: 1. renamed 'tmpl' to 'template'; 2. add function to 'module' instead of global environment
+// Mathias Baert: 1. renamed 'tmpl' to 'template'
+//                2. add function to 'module' instead of window
+//                3. added the CDATA handling from jqote2 (also MIT licenced)
 (function(module){
   var cache = {};
  
@@ -28,7 +30,7 @@ var _ = {
     // load the template - and be sure to cache the result.
     var fn = !/\W/.test(str) ?
       cache[str] = cache[str] ||
-        template(document.getElementById(str).innerHTML) :
+        template(document.getElementById(str).innerHTML.replace(/^\s*<!\[CDATA\[\s*|\s*\]\]>\s*$|[\r\n\t]/g, '')) :
      
       // Generate a reusable function that will serve as a template
       // generator (and which will be cached).

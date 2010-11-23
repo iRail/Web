@@ -43,7 +43,7 @@ body {
 
 /* search */
 form p {
-	margin:0 0 2px 0;
+	margin:0 0 4px 0;
 }
 
 label {
@@ -57,11 +57,28 @@ input.text {
 	width:260px;
 }
 label,
-input.text {
+input.text,
+input.radio {
 	height:20px;
 	line-height:20px;
 }
 
+p.radio label {
+	width:260px;
+}
+p.radio input.radio {
+	width:50px;
+	margin:0;
+	padding:0;
+}
+input.radio {
+	float:left;
+	clear:left;
+}
+
+p {
+	clear:both;
+}
 /* results */
 table.results {
 	margin:10px 0;
