@@ -97,12 +97,14 @@ table.results td {
 
 table.results .departure td,
 table.results .via td,
-table.results .arrival td {
+table.results .arrival td,
+table.results .detail td {
 	color:#5EBCCF;
 	background:#E0E4CC;
 }
 
-table.results .via td {
+table.results .via td,
+table.results .detail td {
 	color:#95C4C1;
 }
 
@@ -115,4 +117,9 @@ table.results span.duration {
 
 table.results span.delay {
 	color:#FA6900;
+}
+
+table.results.concise .detail,
+table.results.concise .via {
+	display:none;
 }
