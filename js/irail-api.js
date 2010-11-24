@@ -59,10 +59,10 @@ var IRail = (function(){
 		// - success;      function;  required;  callback in case of success
 		// - departAt;     date;      this or arriveAt is required;  the prefered time of departure
 		// - arriveAt;     date;      this or departAt is required;  the prefered time of arrival
+		// - transport;    array of strings;  optional;  possible values ['train', 'bus', 'taxi'];  methods of transportation which are acceptable
 		// - limit;        number;    optional, default=3;  the amount of results to return; this is not guaranteed: if 2 connections have the same arrival time, they will be counted as 1
 		// TODO
 		// - error;        function;  optional;  callback in case of error
-		// - transport;    array of strings;  optional;  possible values ['train', 'bus', 'taxi'];  methods of transportation which are acceptable
 		connections : function(args) {
 			if (!args['departure']) {throw('Missing argument "departure"');}
 			if (!args['arrival'])   {throw('Missing argument "arrival"');}
@@ -70,7 +70,7 @@ var IRail = (function(){
 		
 			if (!args['success']) {throw('Missing argument "success"');}
 
-			var limit = args['limit'] || 3;
+			var limit = Number(args['limit']) || 3;
 			var date  = (args['departAt'] || args['arriveAt']);
 
 			var uri = baseUri+'/connections/?format=json'+
@@ -79,8 +79,8 @@ var IRail = (function(){
 				'&date='+_.t(date, 'ddmmyy')+
 				'&time='+_.t(date, 'mmhh')+
 				'&timeSel='+(args['departAt'] ? 'depart' : 'arrive')+
-				'&results='+limit;
-				// typeOfTransport=train;bus;taxi 
+				'&results='+limit+
+				'&typeOfTransport='+encodeURIComponent((args['transport']||[]).join(';'));
 
 			insertScript(
 				uri,
