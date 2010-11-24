@@ -18,36 +18,43 @@ var IRail = (function(){
 		return name+uniqueGlobalNameCounter[name];
 	}
 
-	var insertScript = function(uri, callbackSuccess) {
-		var callbackSuccessName = uniqueGlobalName('iRailCallbackSuccess');
+	var insertScript = function(uri, callbackSuccess, callbackError) {
+		var callbackName = uniqueGlobalName('iRailCallback');
 
-		window[callbackSuccessName] = function() {
-			callbackSuccess.apply(null, arguments);
-			delete window[callbackSuccessName];
-			var elScript = document.getElementById(callbackSuccessName);
+		window[callbackName] = function() {
+			if (arguments[0].error) {
+				callbackError.apply(null, arguments);
+			} else {
+				callbackSuccess.apply(null, arguments);
+			}
+			delete window[callbackName];
+			var elScript = document.getElementById(callbackName);
 			elScript.parentNode.removeChild(elScript);
 		};
 
 		var elScript = document.createElement('script');
-		elScript.id  = callbackSuccessName;
-		elScript.src = uri+'&callback='+callbackSuccessName;
+		elScript.id  = callbackName;
+		elScript.src = uri+'&callback='+callbackName;
 	
 		document.body.appendChild(elScript);
 	}
 
 	// object structure should be predictable
 	var processResponseConnections = function(data) {
+		// 1.   Normalize vias:
 		for (var i=0; i<data.connection.length; i++) {
-			// 1.   Normalize vias:
-			// 1.1. vias object must exist
+		// 1.1. vias object must exist
 			if (!data.connection[i].vias) {
 				data.connection[i].vias = {'number':'0', 'via':[]};
 			}
-			// 1.2. and it must have an array of via's
+		// 1.2. and it must have an array of via's
 			if (!data.connection[i].vias.via.pop) {
 				data.connection[i].vias.via = [data.connection[i].vias.via];
 			}
 		}
+		// 2.  Normalize error property
+		data.error = false;
+		
 		return data;
 	}
 	
@@ -56,12 +63,11 @@ var IRail = (function(){
 		// takes 1 parameters object with:
 		// - departure;    string;    required;  name of the station of departure
 		// - arrival;      string;    required;  name of the station of arrival
-		// - success;      function;  required;  callback in case of success
 		// - departAt;     date;      this or arriveAt is required;  the prefered time of departure
 		// - arriveAt;     date;      this or departAt is required;  the prefered time of arrival
 		// - transport;    array of strings;  optional;  possible values ['train', 'bus', 'taxi'];  methods of transportation which are acceptable
 		// - limit;        number;    optional, default=3;  the amount of results to return; this is not guaranteed: if 2 connections have the same arrival time, they will be counted as 1
-		// TODO
+		// - success;      function;  required;  callback in case of success
 		// - error;        function;  optional;  callback in case of error
 		connections : function(args) {
 			if (!args['departure']) {throw('Missing argument "departure"');}
@@ -86,7 +92,8 @@ var IRail = (function(){
 				uri,
 				function(data) {
 					args['success'](processResponseConnections(data));
-				}
+				},
+				args['error']
 			);
 		}
 	};

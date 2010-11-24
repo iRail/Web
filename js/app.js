@@ -49,7 +49,10 @@ var App = function() {
 				'departAt'  : (departureOrArrivalValue=='departure' ? date : undefined),
 				'arriveAt'  : (departureOrArrivalValue=='arrival'   ? date : undefined),
 				'success'   : function(data) {
-					// console.log(data);
+					_.update('results', data);
+					document.location.hash = "results";
+				},
+				'error'     : function(data) {
 					_.update('results', data);
 					document.location.hash = "results";
 				}
