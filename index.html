@@ -6,6 +6,7 @@
 		<title>iRail - Web</title>
 		<script type="text/javascript" src="js/irail-api.js"></script>
 		<script type="text/javascript" src="js/util.js"></script>
+		<script type="text/javascript" src="js/autocomplete.js"></script>
 		<script type="text/javascript" src="js/app.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/master.css" />
 	</head>
@@ -19,20 +20,22 @@
 		<![CDATA[
 			<a name="search" href="#"></a>
 			<form id="form">
-				<p>
+				<fieldset>
 					<label for="departure">From</label>
 					<input type="text" class="text" name="departure" value="" />
-				</p>
-				<p>
+					<div class="autocomplete" id="departure_autocomplete"></div>
+				</fieldset>
+				<fieldset>
 					<label for="arrival">To</label>
 					<input type="text" class="text" name="arrival" value="" />
-				</p>
-				<p class="radio">
+					<div class="autocomplete" id="arrival_autocomplete"></div>
+				</fieldset>
+				<fieldset class="radio">
 					<input type="radio" class="radio" name="departure-or-arrival" value="departure" /> 
 					<label for="departure-or-arrival">Depart at</label>
 					<input type="radio" class="radio" name="departure-or-arrival" value="arrival" checked="checked" /> 
 					<label for="departure-or-arrival">Arrive at</label>
-				</p>
+				</fieldset>
 				<% var now = new Date(),
 					day    = now.getDate(),
 					month  = (now.getMonth()+1),
@@ -40,7 +43,7 @@
 					hour   = now.getHours(),
 					minute = Math.ceil(now.getMinutes()/5)*5;
 				%>
-				<p>
+				<fieldset>
 					<select name="day">
 					<% for (var i=1; i<=31; i++) { %>
 						<option<%= (day==i ? ' selected="selected"' : '') %>><%= i %></option>
@@ -58,8 +61,8 @@
 						<option<%= (year==i ? ' selected="selected"' : '') %>><%= i %></option>
 					<% } %>
 					</select>
-				</p>
-				<p>
+				</fieldset>
+				<fieldset>
 					<select name="hour">
 					<% for (var i=0; i<=23; i++) { %>
 						<option<%= (hour==i ? ' selected="selected"' : '') %>><%= i %></option>
@@ -71,10 +74,10 @@
 						<option<%= (minute==i ? ' selected="selected"' : '') %>><%= i %></option>
 					<% } %>
 					</select>
-				</p>
-				<p>
+				</fieldset>
+				<fieldset>
 					<input type="submit" class="submit" value="Search">
-				</p>
+				</fieldset>
 			</form>
 		]]>
 		</script>
@@ -119,6 +122,26 @@
 				</tbody>
 			</table>
 			<% } %>
+		]]>
+		</script>
+
+		<script type="text/html" id="departure_autocomplete_template">
+		<![CDATA[
+			<ul>
+			<% for (var i=0; i<values.length; i++) { %>
+				<li><%= values[i] %></li>
+			<% } %>
+			</ul>
+		]]>
+		</script>
+
+		<script type="text/html" id="arrival_autocomplete_template">
+		<![CDATA[
+			<ul>
+			<% for (var i=0; i<values.length; i++) { %>
+				<li><%= values[i] %></li>
+			<% } %>
+			</ul>
 		]]>
 		</script>
 	</body>

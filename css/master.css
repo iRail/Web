@@ -42,7 +42,7 @@ body {
 }
 
 /* search */
-form p {
+form fieldset {
 	margin:0 0 4px 0;
 }
 
@@ -51,22 +51,25 @@ label {
 	float:left;
 	width:50px;
 }
-input.text {
+input.text,
+.autocomplete li {
 	background:#A7DBD8;
 	border:solid 1px #95C4C1;
 	width:260px;
 }
 label,
 input.text,
-input.radio {
-	height:20px;
+.autocomplete li {
+	min-height:20px;
 	line-height:20px;
+	padding:1px 0;
 }
 
-p.radio label {
+fieldset.radio label {
+	line-height:20px;
 	width:260px;
 }
-p.radio input.radio {
+fieldset.radio input.radio {
 	width:50px;
 	margin:0;
 	padding:0;
@@ -76,9 +79,24 @@ input.radio {
 	clear:left;
 }
 
-p {
+fieldset {
 	clear:both;
 }
+
+/* autocomplete */
+.autocomplete {
+	position:absolute;
+	width:260px;
+	margin-left:50px;
+}
+.autocomplete ul,
+.autocomplete li {
+	display:block;
+}
+.autocomplete li {
+	border-top:none;
+}
+
 /* results */
 table.results {
 	margin:10px 0;

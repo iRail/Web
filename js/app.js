@@ -25,6 +25,9 @@ var App = function() {
 		var month     = form['month'];
 		var year      = form['year'];
 		var departureOrArrival = form['departure-or-arrival'];
+		
+		autoComplete(departure, IRailData.stations);
+		autoComplete(arrival, IRailData.stations);
 
 		form.onsubmit = function() {
 			if (!departure.value || !arrival.value) {

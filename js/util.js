@@ -30,6 +30,10 @@ var _ = {
 	update : function(name, data) {
 		var el = document.getElementById(name);
 		el.innerHTML = _.template(name+'_template', data||{});
+	},
+	stopEvent : function(ev) {
+		ev.cancelBubble = true;
+		ev.stopPropagation && ev.stopPropagation();
 	}
 };
 
@@ -75,19 +79,32 @@ var _ = {
 
 
 // source: http://ejohn.org/projects/flexible-javascript-events/ - licence unknown
+// added the obj and type as array functionality - Mathias Baert
 // todo: replace with other concise event handling helpers, with licence
-function addEvent( obj, type, fn ) {
+_.addEvent = function addEvent( obj, type, fn ) {
+	if (obj.pop) {
+		for (var i=0; i<obj.length; i++) {
+			_.addEvent(obj[i], type, fn);
+		}
+		return;
+	}
+	if (type.pop) {
+		for (var i=0; i<type.length; i++) {
+			_.addEvent(obj, type[i], fn);
+		}
+		return;
+	}
   if ( obj.attachEvent ) {
     obj['e'+type+fn] = fn;
     obj[type+fn] = function(){obj['e'+type+fn]( window.event );}
     obj.attachEvent( 'on'+type, obj[type+fn] );
   } else
     obj.addEventListener( type, fn, false );
-}
-function removeEvent( obj, type, fn ) {
+};
+_.removeEvent = function removeEvent( obj, type, fn ) {
   if ( obj.detachEvent ) {
     obj.detachEvent( 'on'+type, obj[type+fn] );
     obj[type+fn] = null;
   } else
     obj.removeEventListener( type, fn, false );
-}
+};
