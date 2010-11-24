@@ -1,0 +1,23 @@
+- search
+ - swap from/to
+- results
+ - concise/detailed view
+ - destination of train
+ - platform
+- API
+ - methods
+  - list all stations
+  - connections
+  - liveboards
+  - vehicle
+ - add error callback
+  - when something went wrong loading the script
+ - add language switch
+ - split off into it's own project
+- buildscripts
+ - concat all javascript
+ - minify html
+ - minify javascript
+ - minify css
+- let someone with teh skillz design a decent GUI
+- pick licence
