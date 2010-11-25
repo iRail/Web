@@ -5,6 +5,7 @@
 var _ = {
 	t : function(time, format) {
 		var time = time.getHours ? time : new Date(time*1000);
+		var isDuration = time.getFullYear() == 1970;
 		// as long as we don't need more than a handful of formats, this is acceptable
 		switch (format) {
 			case 'ddmmyy':
@@ -14,13 +15,19 @@ var _ = {
 				return _.padZeroes(time.getHours())+_.padZeroes(time.getMinutes());
 				break;
 			case 'hh:mm':
-				return _.padZeroes(time.getHours())+':'+_.padZeroes(time.getMinutes());
+				if (isDuration) {
+					return _.padZeroes(time.getUTCHours())+':'+_.padZeroes(time.getUTCMinutes());
+				} else {
+					return _.padZeroes(time.getHours())+':'+_.padZeroes(time.getMinutes());
+				}
 				break;
 			case '+hh:mm':
-				if (time.getUTCHours()) {
-					return '+'+time.getUTCHours()+':'+_.padZeroes(time.getUTCMinutes());
-				}	else {
-					return '+'+time.getUTCMinutes();
+				if (isDuration) {
+					if (time.getUTCHours()) {
+						return '+'+time.getUTCHours()+':'+_.padZeroes(time.getUTCMinutes());
+					}	else {
+						return '+'+time.getUTCMinutes();
+					}
 				}
 				break;
 		}
