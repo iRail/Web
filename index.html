@@ -4,14 +4,13 @@
 		<meta charset="utf-8">
 		<title>iRail</title>
 		<link rel="stylesheet" href="css/master.css">
-		<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+		<meta name="viewport" content="width=device-width;initial-scale=1.0;maximum-scale=1.0;user-scalable=0;">
 	</head>
 	<body>
 		<div id="search"></div>
 		<div id="results"></div>
 		<script type="text/html" id="search_template">
 		<![CDATA[
-			<a name="search" href="#"></a>
 			<form id="form">
 				<fieldset>
 					<label for="departure">From</label>
@@ -85,7 +84,7 @@
 			<% } else { %>
 			
 				<% for (var i=0; i<connection.length; i++) { %>
-				<table id="results" class="results">
+				<table class="results">
 					<tbody>
 						<tr>
 							<td>
