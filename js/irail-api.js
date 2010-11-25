@@ -40,6 +40,23 @@ var IRail = (function(){
 	};
 
 	// object structure should be predictable
+	var processResponseLiveboard = function(data) {
+		// 1.   Normalize departures:
+		// 1.1. departures object must exist
+			if (!data.departures) {
+				data.departures = {'number':'0', 'departure':[]};
+			}
+		// 1.2. and it must have an array of departure's
+			if (!data.departures.departure.pop) {
+				data.departures.departure = [data.departures.departure];
+			}
+		// 2.  Normalize error property
+		data.error = false;
+		
+		return data;
+	};
+
+	// object structure should be predictable
 	var processResponseConnections = function(data) {
 		// 1.   Normalize vias:
 		for (var i=0; i<data.connection.length; i++) {
@@ -137,7 +154,7 @@ var IRail = (function(){
 			insertScript(
 				uri,
 				function(data) {
-					args['success'](data);
+					args['success'](processResponseLiveboard(data));
 				},
 				args['error']
 			);

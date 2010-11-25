@@ -8,10 +8,12 @@
 	</head>
 	<body>
 		<div id="search"></div>
-		<div id="results"></div>
+		<div id="search_results"></div>
+		<div id="liveboard"></div>
+		<div id="liveboard_results"></div>
 		<script type="text/html" id="search_template">
 		<![CDATA[
-			<form id="form">
+			<form id="search_form">
 				<fieldset>
 					<label for="departure">From</label>
 					<input type="text" class="text" name="departure" id="departure">
@@ -24,7 +26,7 @@
 				</fieldset>
 				<fieldset class="radio">
 					<label><input type="radio" class="radio" name="departure-or-arrival" value="departure"> Depart at</label>
-					<label><input type="radio" class="radio" name="departure-or-arrival" id="arrival" value="arrival" checked> Arrive at</label>
+					<label><input type="radio" class="radio" name="departure-or-arrival" value="arrival" checked> Arrive at</label>
 				</fieldset>
 				<% var now = new Date(),
 					day    = now.getDate(),
@@ -72,7 +74,7 @@
 		]]>
 		</script>
 		
-		<script type="text/html" id="results_template">
+		<script type="text/html" id="search_results_template">
 		<![CDATA[
 			<!-- Tables? I hear you ask. You are welcome to fix it. -->
 			<% if (error) { %>
@@ -87,16 +89,10 @@
 						<tr>
 							<td>
 								<span class="departure">
-									<%= _.t(connection[i].departure.time, 'hh:mm') %>
-									<% if (connection[i].departure.delay>0) { %>
-									<span class="delay">+<%= connection[i].departure.delay %></span>
-									<% } %>
+									<%= _.partial('time', connection[i].departure) %>
 								</span>
 								<span class="arrival">
-									<%= _.t(connection[i].arrival.time, 'hh:mm') %>
-									<% if (connection[i].arrival.delay>0) { %>
-									<span class="delay">+<%= connection[i].arrival.delay %></span>
-									<% } %>
+									<%= _.partial('time', connection[i].arrival) %>
 								</span>
 								<span class="duration">
 									<%= _.t(connection[i].duration, 'hh:mm') %>
@@ -140,6 +136,76 @@
 			</ul>
 		]]>
 		</script>
+
+		<script type="text/html" id="station_autocomplete_template">
+		<![CDATA[
+			<ul>
+			<% for (var i=0; i<values.length; i++) { %>
+				<li><%= values[i] %></li>
+			<% } %>
+			</ul>
+		]]>
+		</script>
+		
+		<script type="text/html" id="liveboard_template">
+		<![CDATA[
+			<form id="liveboard_form">
+				<fieldset>
+					<label for="station">From</label>
+					<input type="text" class="text" name="station" id="station">
+					<div class="autocomplete" id="station_autocomplete"></div>
+				</fieldset>
+				<fieldset>
+					<input type="submit" class="submit" value="Search">
+				</fieldset>
+			</form>
+		]]>
+		</script>
+		
+		<script type="text/html" id="liveboard_results_template">
+		<![CDATA[
+			<% if (error) { %>
+				
+				<%= message %>
+				
+			<% } else if (departures.number == 0) { %>
+
+				no departures
+
+			<% } else { %>
+			
+				<table class="results">
+					<tbody>
+					<% for (var i=0; i<departures.departure.length; i++) { %>
+						<tr>
+							<td class="platform">
+								<%= departures.departure[i].platform != 'NA' ? departures.departure[i].platform : '-' %>
+							</td>
+							<td class="destination">
+								<%= departures.departure[i].station %>
+							</td>
+							<td class="time">
+								<%= _.partial('time', departures.departure[i]) %>
+							</td>
+						</tr>
+					<% } %>
+					</tbody>
+				</table>
+
+			<% } %>
+		]]>
+		</script>
+		
+		<script type="text/html" id="_time">
+		<![CDATA[
+			<%= _.t(time, 'hh:mm') %>
+			<% if (delay>0) { %>
+			<span class="delay"><%= _.t(delay, '+hh:mm') %></span>
+			<% } %>
+		]]>
+		</script>
+		
+		
 		<script src="js/irail-api.js"></script>
 		<script src="js/util.js"></script>
 		<script src="js/autocomplete.js"></script>

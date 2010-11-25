@@ -97,7 +97,7 @@ fieldset {
 	border-top:none;
 }
 
-/* results */
+/* search results */
 table.results {
 	margin:10px 0;
 	width:312px;
@@ -140,4 +140,11 @@ table.results span.delay {
 table.results.concise .detail,
 table.results.concise .via {
 	display:none;
+}
+
+/* liveboard results */
+table.results td.platform {
+	width:20px;
+	color:#F38630;
+	text-align:right;
 }

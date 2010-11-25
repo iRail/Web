@@ -5,8 +5,6 @@
 var _ = {
 	t : function(time, format) {
 		var time = time.getHours ? time : new Date(time*1000);
-		// in the context of this project this assumption is correct
-		var isDuration = (time.getFullYear()==1970);
 		// as long as we don't need more than a handful of formats, this is acceptable
 		switch (format) {
 			case 'ddmmyy':
@@ -16,11 +14,13 @@ var _ = {
 				return _.padZeroes(time.getHours())+_.padZeroes(time.getMinutes());
 				break;
 			case 'hh:mm':
-			default:
-				if (isDuration) {
-					return _.padZeroes(time.getUTCHours())+':'+_.padZeroes(time.getUTCMinutes());
-				} else {
-					return _.padZeroes(time.getHours())+':'+_.padZeroes(time.getMinutes());
+				return _.padZeroes(time.getHours())+':'+_.padZeroes(time.getMinutes());
+				break;
+			case '+hh:mm':
+				if (time.getUTCHours()) {
+					return '+'+time.getUTCHours()+':'+_.padZeroes(time.getUTCMinutes());
+				}	else {
+					return '+'+time.getUTCMinutes();
 				}
 				break;
 		}
@@ -36,6 +36,9 @@ var _ = {
 	update : function(name, data) {
 		var el = document.getElementById(name);
 		el.innerHTML = _.template(name+'_template', data||{});
+	},
+	partial : function(name, data) {
+		return _.template('_'+name, data||{});
 	},
 	stopEvent : function(ev) {
 		ev.cancelBubble = true;

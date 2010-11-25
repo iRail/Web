@@ -9,6 +9,7 @@ var App = function() {
 	
 	var initialize = function() {
 		this.search();
+		this.liveboard();
 	};
 		
 	this.search = function() {
@@ -16,7 +17,7 @@ var App = function() {
 		_.update('search');
 		
 		// HTML elements
-		var form = document.getElementById('form');
+		var form = document.getElementById('search_form');
 		var departure = form['departure'];
 		var arrival   = form['arrival'];
 		var minute    = form['minute'];
@@ -49,12 +50,43 @@ var App = function() {
 				'departAt'  : (departureOrArrivalValue=='departure' ? date : undefined),
 				'arriveAt'  : (departureOrArrivalValue=='arrival'   ? date : undefined),
 				'success'   : function(data) {
-					_.update('results', data);
-					document.location.hash = "results";
+					_.update('search_results', data);
+					document.location.hash = "search_results";
 				},
 				'error'     : function(data) {
-					_.update('results', data);
-					document.location.hash = "results";
+					_.update('search_results', data);
+					document.location.hash = "search_results";
+				}
+			});
+			return false;
+		}
+	};
+	
+	this.liveboard = function() {
+		// update HTML from template
+		_.update('liveboard');
+		
+		// HTML elements
+		var form = document.getElementById('liveboard_form');
+		var station = form['station'];
+		
+		autoComplete(station, IRailData.stations);
+
+		form.onsubmit = function() {
+			if (!station.value) {
+				return false;
+			}
+						
+			IRail.liveboard({
+				'station'  : station.value,
+				'departAt' : new Date(),
+				'success'  : function(data) {
+					_.update('liveboard_results', data);
+					document.location.hash = "liveboard_results";
+				},
+				'error'    : function(data) {
+					_.update('liveboard_results', data);
+					document.location.hash = "liveboard_results";
 				}
 			});
 			return false;
