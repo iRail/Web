@@ -48,7 +48,7 @@ ul#navigation li {
 }
 #navigation {
 	height:24px;
-	margin-bottom:4px;
+	margin-bottom:8px;
 	background:#C9CCB7;
 }
 #navigation li {
@@ -59,8 +59,12 @@ ul#navigation li {
 	margin-left:4px;
 }
 #navigation li.first {
-	border-right:solid 1px #E0E4CC;
+	border-right:solid 2px #E0E4CC;
 	padding-right:4px;
+}
+#navigation li.last {
+	padding-right:4px;
+	float:right;
 }
 #navigation li.current {
 	text-decoration:underline;
@@ -172,4 +176,9 @@ table.results td.platform {
 	width:20px;
 	color:#F38630;
 	text-align:right;
+}
+
+/* info */
+#info p {
+	margin:12px 0;
 }

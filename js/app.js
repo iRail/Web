@@ -16,26 +16,26 @@ var App = function() {
 	this.navigation = function() {
 		var showSearch    = _.byId('show_search');
 		var showLiveboard = _.byId('show_liveboard');
+		var showInfo      = _.byId('show_info');
 		var searchPane    = _.byId('search_pane');
 		var liveboardPane = _.byId('liveboard_pane');
+		var infoPane      = _.byId('info_pane');
 
-		var doShowSearch = function() {
-			_.addClass(showSearch, 'current');
-			_.removeClass(showLiveboard, 'current');
-			_.show(searchPane);
-			_.hide(liveboardPane);
-		};
-		_.addEvent(showSearch, 'click', doShowSearch);
+		var showPane = function(name) {
+			_[name=='search'    ? 'addClass' : 'removeClass'](showSearch,    'current');
+			_[name=='liveboard' ? 'addClass' : 'removeClass'](showLiveboard, 'current');
+			_[name=='info'      ? 'addClass' : 'removeClass'](showInfo,      'current');
 
-		var doShowLiveboard = function() {
-			_.removeClass(showSearch, 'current');
-			_.addClass(showLiveboard, 'current');
-			_.hide(searchPane);
-			_.show(liveboardPane);
+			_[name=='search'    ? 'show' : 'hide'](searchPane);
+			_[name=='liveboard' ? 'show' : 'hide'](liveboardPane);
+			_[name=='info'      ? 'show' : 'hide'](infoPane);
 		};
-		_.addEvent(showLiveboard, 'click', doShowLiveboard);
 		
-		doShowSearch();
+		_.addEvent(showSearch,    'click', function(){showPane('search')});
+		_.addEvent(showLiveboard, 'click', function(){showPane('liveboard')});
+		_.addEvent(showInfo,      'click', function(){showPane('info')});
+		
+		showPane('search');
 	};
 	
 	this.search = function() {
