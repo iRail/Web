@@ -58,6 +58,20 @@ var _ = {
 	},
 	removeClass : function(el, className) {
 		el.className = el.className.split(className).join(' ');
+	},
+	// http://www.quirksmode.org/js/events_properties.html#target
+	target : function(ev) {
+		var target;
+		if (ev.target) {
+			target = ev.target;
+		}	else if (ev.srcElement) {
+			target = ev.srcElement;
+		}
+		if (target.nodeType == 3) {
+			// defeat Safari bug
+			target = target.parentNode;
+		}
+		return target;
 	}
 };
 

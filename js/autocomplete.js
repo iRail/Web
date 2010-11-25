@@ -18,7 +18,7 @@ var autoComplete = function(el, data) {
 
 		// select item from list
 		_.addEvent(document.getElementById(autocompleteId), 'click', function(ev) {
-			var li = ev.originalTarget;
+			var li = _.target(ev);
 			el.value = li.innerHTML.replace(/^\s+|\s+$/g);
 			_.update(autocompleteId, {values:[]});
 			_.stopEvent(ev);

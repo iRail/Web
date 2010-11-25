@@ -43,7 +43,7 @@ var App = function() {
 		_.update('search');
 		
 		// HTML elements
-		var form = _.byId('search_form');
+		var form      = _.byId('search_form');
 		var departure = form['departure'];
 		var arrival   = form['arrival'];
 		var minute    = form['minute'];
