@@ -4,8 +4,10 @@
 
 var _ = {
 	t : function(time, format) {
-		// as long as we don'd need more than a handful of formats, this is acceptable
 		var time = time.getHours ? time : new Date(time*1000);
+		// in the context of this project this assumption is correct
+		var isDuration = (time.getFullYear()==1970);
+		// as long as we don't need more than a handful of formats, this is acceptable
 		switch (format) {
 			case 'ddmmyy':
 				return _.padZeroes(time.getDate())+_.padZeroes(time.getMonth()+1)+(time.getYear()%100);
@@ -15,7 +17,11 @@ var _ = {
 				break;
 			case 'hh:mm':
 			default:
-				return _.padZeroes(time.getHours())+':'+_.padZeroes(time.getMinutes());
+				if (isDuration) {
+					return _.padZeroes(time.getUTCHours())+':'+_.padZeroes(time.getUTCMinutes());
+				} else {
+					return _.padZeroes(time.getHours())+':'+_.padZeroes(time.getMinutes());
+				}
 				break;
 		}
 	},
