@@ -8,16 +8,42 @@
 var App = function() {
 	
 	var initialize = function() {
+		this.navigation();
 		this.search();
 		this.liveboard();
 	};
+	
+	this.navigation = function() {
+		var showSearch    = _.byId('show_search');
+		var showLiveboard = _.byId('show_liveboard');
+		var searchPane    = _.byId('search_pane');
+		var liveboardPane = _.byId('liveboard_pane');
+
+		var doShowSearch = function() {
+			_.addClass(showSearch, 'current');
+			_.removeClass(showLiveboard, 'current');
+			_.show(searchPane);
+			_.hide(liveboardPane);
+		};
+		_.addEvent(showSearch, 'click', doShowSearch);
+
+		var doShowLiveboard = function() {
+			_.removeClass(showSearch, 'current');
+			_.addClass(showLiveboard, 'current');
+			_.hide(searchPane);
+			_.show(liveboardPane);
+		};
+		_.addEvent(showLiveboard, 'click', doShowLiveboard);
 		
+		doShowSearch();
+	};
+	
 	this.search = function() {
 		// update HTML from template
 		_.update('search');
 		
 		// HTML elements
-		var form = document.getElementById('search_form');
+		var form = _.byId('search_form');
 		var departure = form['departure'];
 		var arrival   = form['arrival'];
 		var minute    = form['minute'];
@@ -67,7 +93,7 @@ var App = function() {
 		_.update('liveboard');
 		
 		// HTML elements
-		var form = document.getElementById('liveboard_form');
+		var form = _.byId('liveboard_form');
 		var station = form['station'];
 		
 		autoComplete(station, IRailData.stations);

@@ -41,6 +41,31 @@ body {
 	font-size:18px;
 }
 
+/* navigation */
+ul#navigation,
+ul#navigation li {
+	display:block;
+}
+#navigation {
+	height:24px;
+	margin-bottom:4px;
+	background:#C9CCB7;
+}
+#navigation li {
+	float:left;
+	height:20px;
+	line-height:20px;
+	padding-top:4px;
+	margin-left:4px;
+}
+#navigation li.first {
+	border-right:solid 1px #E0E4CC;
+	padding-right:4px;
+}
+#navigation li.current {
+	text-decoration:underline;
+}
+
 /* search */
 form fieldset {
 	margin:0 0 4px 0;

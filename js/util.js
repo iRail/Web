@@ -43,8 +43,24 @@ var _ = {
 	stopEvent : function(ev) {
 		ev.cancelBubble = true;
 		ev.stopPropagation && ev.stopPropagation();
+	},
+	show : function(el) {
+		el.style.display = '';
+	},
+	hide : function(el) {
+		el.style.display = 'none';
+	},
+	byId : function(id) {
+		return document.getElementById(id);
+	},
+	addClass : function(el, className) {
+		el.className = el.className+' '+className;
+	},
+	removeClass : function(el, className) {
+		el.className = el.className.split(className).join(' ');
 	}
 };
+
 
 // Simple JavaScript Templating
 // John Resig - http://ejohn.org/ - MIT Licensed
