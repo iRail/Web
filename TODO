@@ -1,3 +1,4 @@
+GENERAL
 - search
  - swap from/to
 - results
@@ -19,3 +20,13 @@
  - minify css
 - let someone with teh skillz design a decent GUI
 - pick licence
+
+DEVICE SPECIFIC
+- iphone
+ - tested; works
+- blackberry
+ - untested
+- android
+ - untested
+- ...
+ - untested
