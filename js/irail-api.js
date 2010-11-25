@@ -141,6 +141,26 @@ var IRail = (function(){
 				},
 				args['error']
 			);
+		},
+		// IRail.vehicle({id:'Be.NMBS.P1234', success:function(data){...}})
+		// takes 1 parameters object with:
+		// - id;        string;    required;  id of the vehicle
+		// - success;   function;  required;  callback in case of success
+		// - error;     function;  optional;  callback in case of error
+		vehicle : function(args) {
+			if (!args['id']) {throw('Missing argument "id"');}
+			if (!args['success']) {throw('Missing argument "success"');}
+
+			var uri = baseUri+'/vehicle/?format=json'+
+				'&id='+encodeURIComponent(args['id']);
+
+			insertScript(
+				uri,
+				function(data) {
+					args['success'](data);
+				},
+				args['error']
+			);
 		}
 	};
 })();
