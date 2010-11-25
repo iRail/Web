@@ -14,19 +14,17 @@
 			<form id="form">
 				<fieldset>
 					<label for="departure">From</label>
-					<input type="text" class="text" name="departure" value="">
+					<input type="text" class="text" name="departure" id="departure">
 					<div class="autocomplete" id="departure_autocomplete"></div>
 				</fieldset>
 				<fieldset>
 					<label for="arrival">To</label>
-					<input type="text" class="text" name="arrival" id="arrival" value="">
+					<input type="text" class="text" name="arrival" id="arrival">
 					<div class="autocomplete" id="arrival_autocomplete"></div>
 				</fieldset>
 				<fieldset class="radio">
-					<input type="radio" class="radio" name="departure-or-arrival" value="departure"> 
-					<label for="departure-or-arrival">Depart at</label>
-					<input type="radio" class="radio" name="departure-or-arrival" id="departure-or-arrival" value="arrival" checked>
-					<label for="departure-or-arrival">Arrive at</label>
+					<label><input type="radio" class="radio" name="departure-or-arrival" value="departure"> Depart at</label>
+					<label><input type="radio" class="radio" name="departure-or-arrival" id="arrival" value="arrival" checked> Arrive at</label>
 				</fieldset>
 				<% var now = new Date(),
 					day    = now.getDate(),
