@@ -4,12 +4,16 @@
  - concise/detailed view
  - destination of train
  - platform
+- liveboard
+ - implement
+- info screen
+- navigation
+ - menu to switch between search, liveboard and info
 - API
  - methods
-  - list all stations
-  - connections
-  - liveboards
-  - vehicle
+  - stations -> to be tested
+  - liveboards -> to be tested
+  - vehicle -> to be tested
  - add error callback
   - when something went wrong loading the script
  - add language switch
