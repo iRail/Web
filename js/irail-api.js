@@ -37,7 +37,7 @@ var IRail = (function(){
 		elScript.src = uri+'&callback='+callbackName;
 	
 		document.body.appendChild(elScript);
-	}
+	};
 
 	// object structure should be predictable
 	var processResponseConnections = function(data) {
@@ -56,8 +56,8 @@ var IRail = (function(){
 		data.error = false;
 		
 		return data;
-	}
-	
+	};
+
 	return {
 		// IRail.stations()
 		// takes 1 parameters object with:
@@ -74,7 +74,7 @@ var IRail = (function(){
 				args['error']
 			);
 		},
-		// IRail.connections({from:'GENT', to:'ANTWERPEN', success:function(data){...}})
+		// IRail.connections({departure:'GENT', arrival:'ANTWERPEN', success:function(data){...}})
 		// takes 1 parameters object with:
 		// - departure;    string;    required;  name of the station of departure
 		// - arrival;      string;    required;  name of the station of arrival
@@ -107,6 +107,37 @@ var IRail = (function(){
 				uri,
 				function(data) {
 					args['success'](processResponseConnections(data));
+				},
+				args['error']
+			);
+		},
+		// IRail.liveboard({station:'ANTWERPEN CENTRAAL', success:function(data){...}})
+		// takes 1 parameters object with:
+		// - station;   string;    this or id is required;        name of the station
+		// - id;        string;    this or station is required;   id of the station
+		// - departAt;  date;      this or arriveAt is required;  the prefered time of departure
+		// - arriveAt;  date;      this or departAt is required;  the prefered time of arrival
+		// - success;   function;  required;  callback in case of success
+		// - error;     function;  optional;  callback in case of error
+		liveboard : function(args) {
+			if (!args['station'] && !args['id']) {throw('Missing argument "station" or "id"');}
+			if (!args['departAt'] && !args['arriveAt']) {throw('Missing argument "departAt" or "arriveAt"');}
+		
+			if (!args['success']) {throw('Missing argument "success"');}
+
+			var date  = (args['departAt'] || args['arriveAt']);
+
+			var uri = baseUri+'/liveboard/?format=json'+
+				'&station='+encodeURIComponent(args['station'])+
+				'&id='+encodeURIComponent(args['id'])+
+				'&date='+_.t(date, 'ddmmyy')+
+				'&time='+_.t(date, 'mmhh')+
+				'&arrdep='+(args['departAt'] ? 'DEP' : 'ARR');
+
+			insertScript(
+				uri,
+				function(data) {
+					args['success'](data);
 				},
 				args['error']
 			);
