@@ -23,7 +23,7 @@ var IRail = (function(){
 
 		window[callbackName] = function() {
 			if (arguments[0].error) {
-				callbackError.apply(null, arguments);
+				callbackError && callbackError.apply(null, arguments);
 			} else {
 				callbackSuccess.apply(null, arguments);
 			}
@@ -59,6 +59,21 @@ var IRail = (function(){
 	}
 	
 	return {
+		// IRail.stations()
+		// takes 1 parameters object with:
+		// - success;  function;  required;  callback in case of success
+		// - error;    function;  optional;  callback in case of error
+		connections : function(args) {
+			if (!args['success']) {throw('Missing argument "success"');}
+
+			insertScript(
+				baseUri+'/stations/?format=json',
+				function(data) {
+					args['success'](data);
+				},
+				args['error']
+			);
+		},
 		// IRail.connections({from:'GENT', to:'ANTWERPEN', success:function(data){...}})
 		// takes 1 parameters object with:
 		// - departure;    string;    required;  name of the station of departure
