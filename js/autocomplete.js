@@ -43,12 +43,11 @@ var autoComplete = function(el, data) {
 		});
 
 		// hide suggestionlist when clicking outside of input and list
-		// _.addEvent([el, document.getElementById(autocompleteId)], 'click', function(ev) {
-		// 	_.stopEvent(ev);
-		// });
-		// _.addEvent(document.body, 'click', function(ev) {
-		// 	_.update(autocompleteId, {values:[], position:0});
-		// });
+		_.addEvent(el, 'blur', function(ev) {
+			setTimeout(function() {
+				_.update(autocompleteId, {values:[], position:0});
+			}, 10);
+		});
 	};
 	
 	// this is an initial naive implementation
