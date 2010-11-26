@@ -7,8 +7,6 @@ GENERAL
  - concise/detailed view
  - destination of train
  - platform
-- autocomplete
- - hide on blur
 - API
  - methods
   - stations -> to be tested
@@ -29,6 +27,7 @@ GENERAL
 DEVICE SPECIFIC
 - iphone
  - tested; works
+ - viewport scaling is wonky
 - blackberry
  - untested
 - android
