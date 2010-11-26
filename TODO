@@ -3,6 +3,7 @@ GENERAL
  - manage location.#hash
 - search
  - swap from/to
+ - add spinner
 - results
  - concise/detailed view
  - destination of train
