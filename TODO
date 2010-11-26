@@ -18,7 +18,6 @@ GENERAL
   - when something went wrong loading the script
  - add language switch
  - split off into it's own project
- - remove dependency on util.js (that was silly)
  - add caching
 - buildscripts
  - concat all javascript

@@ -148,19 +148,19 @@
 
 		<script type="text/html" id="departure_autocomplete_template">
 		<![CDATA[
-		<%= _.partial('autocomplete', {values:values}) %>
+			<%= _.partial('autocomplete', {values:values, position:position}) %>
 		]]>
 		</script>
 
 		<script type="text/html" id="arrival_autocomplete_template">
 		<![CDATA[
-		<%= _.partial('autocomplete', {values:values}) %>
+			<%= _.partial('autocomplete', {values:values, position:position}) %>
 		]]>
 		</script>
 
 		<script type="text/html" id="station_autocomplete_template">
 		<![CDATA[
-			<%= _.partial('autocomplete', {values:values}) %>
+			<%= _.partial('autocomplete', {values:values, position:position}) %>
 		]]>
 		</script>
 
@@ -168,7 +168,7 @@
 		<![CDATA[
 			<ul>
 			<% for (var i=0; i<values.length; i++) { %>
-				<li><%= values[i] %></li>
+				<li<%= (position==i ? ' class="current"' : '') %>><%= values[i] %></li>
 			<% } %>
 			</ul>
 		]]>

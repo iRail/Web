@@ -10,27 +10,45 @@ var autoComplete = function(el, data) {
 	
 	var initialize = function(el, data) {
 		var insideClick = false;
+		var position = 0;
+		var values = [];
 
 		// update suggestion list on keystrike or focus
 		_.addEvent(el, ['keyup', 'focus'], function(ev) {
-			_.update(autocompleteId, {values:suggestions(ev.currentTarget.value)});
+			if (ev.keyCode && ev.keyCode==40) {
+				if (position < (values.length-1)) {
+					position++;
+				}
+			} else if (ev.keyCode && ev.keyCode==38) {
+				if (position > 0) {
+					position--;
+				}
+			} else if (ev.keyCode && ev.keyCode==13) {
+				el.value = values[position];
+				values = [];
+			} else {
+				values = suggestions(ev.currentTarget.value);
+				position = 0;
+			}
+			
+			_.update(autocompleteId, {values:values, position:position});
 		});
 
 		// select item from list
 		_.addEvent(document.getElementById(autocompleteId), 'click', function(ev) {
 			var li = _.target(ev);
 			el.value = li.innerHTML.replace(/^\s+|\s+$/g);
-			_.update(autocompleteId, {values:[]});
+			_.update(autocompleteId, {values:[], position:0});
 			_.stopEvent(ev);
 		});
 
 		// hide suggestionlist when clicking outside of input and list
-		_.addEvent([el, document.getElementById(autocompleteId)], 'click', function(ev) {
-			_.stopEvent(ev);
-		});
-		_.addEvent(document.body, 'click', function(ev) {
-			_.update(autocompleteId, {values:[]});
-		});
+		// _.addEvent([el, document.getElementById(autocompleteId)], 'click', function(ev) {
+		// 	_.stopEvent(ev);
+		// });
+		// _.addEvent(document.body, 'click', function(ev) {
+		// 	_.update(autocompleteId, {values:[], position:0});
+		// });
 	};
 	
 	// this is an initial naive implementation

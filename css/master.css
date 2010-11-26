@@ -126,6 +126,10 @@ fieldset {
 	border-top:none;
 }
 
+.autocomplete .current {
+	background:#F38630;
+}
+
 /* search results */
 table.results {
 	margin:10px 0;
