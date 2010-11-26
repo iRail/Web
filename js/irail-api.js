@@ -74,6 +74,17 @@ var IRail = (function(){
 		
 		return data;
 	};
+	
+	var t = function(time, format) {
+		switch (format) {
+			case 'ddmmyy':
+				return _.padZeroes(time.getDate())+_.padZeroes(time.getMonth()+1)+(time.getYear()%100);
+				break;
+			case 'mmhh':
+				return _.padZeroes(time.getHours())+_.padZeroes(time.getMinutes());
+				break;
+		}
+	};	
 
 	return {
 		// IRail.stations()
@@ -114,8 +125,8 @@ var IRail = (function(){
 			var uri = baseUri+'/connections/?format=json'+
 				'&from='+encodeURIComponent(args['departure'])+
 				'&to='+encodeURIComponent(args['arrival'])+
-				'&date='+_.t(date, 'ddmmyy')+
-				'&time='+_.t(date, 'mmhh')+
+				'&date='+t(date, 'ddmmyy')+
+				'&time='+t(date, 'mmhh')+
 				'&timeSel='+(args['departAt'] ? 'depart' : 'arrive')+
 				'&results='+limit+
 				'&typeOfTransport='+encodeURIComponent((args['transport']||[]).join(';'));
@@ -147,8 +158,8 @@ var IRail = (function(){
 			var uri = baseUri+'/liveboard/?format=json'+
 				'&station='+encodeURIComponent(args['station'])+
 				'&id='+encodeURIComponent(args['id'])+
-				'&date='+_.t(date, 'ddmmyy')+
-				'&time='+_.t(date, 'mmhh')+
+				'&date='+t(date, 'ddmmyy')+
+				'&time='+t(date, 'mmhh')+
 				'&arrdep='+(args['departAt'] ? 'DEP' : 'ARR');
 
 			insertScript(
