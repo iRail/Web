@@ -1,10 +1,15 @@
 GENERAL
+- navigation
+ - manage location.#hash
 - search
  - swap from/to
 - results
  - concise/detailed view
  - destination of train
  - platform
+- autocomplete
+ - keyboard controls
+ - hide on blur
 - API
  - methods
   - stations -> to be tested
@@ -13,6 +18,8 @@ GENERAL
   - when something went wrong loading the script
  - add language switch
  - split off into it's own project
+ - remove dependency on util.js (that was silly)
+ - add caching
 - buildscripts
  - concat all javascript
  - minify html
