@@ -1,5 +1,7 @@
 iRail - Mobile Website
 
+Demo here: http://dev.mathiasbaert.be/irail-web/
+
 This is a demo web application for the JavaScript wrapper around the iRail API.
 The API uses JSONP, but the wrapper hides that detail for you.
 
@@ -7,7 +9,10 @@ API-Wrapper
 The API-Wrapper wraps this API pretty close http://project.irail.be/cgi-bin/trac.fcgi/wiki/APIv1
 but the result is JSON and some inconsistencies are taken care of.
 
-For documentation on the API-Wrapper methods, go look at /js/irail-api.js
+For documentation on the API-Wrapper methods, go look at https://github.com/iRail/Web/blob/master/js/irail-api.js
 where they are documented in detail. 
 Idealy documentation get generated from the inline documentation,
 but in the meantime I don't want to have manually duplicated information here
+
+I'm looking for a designer!
+I'm looking for testers with mobile devices! (I have only an iPhone)
