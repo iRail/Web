@@ -33,12 +33,19 @@ table {
 /* global layout and typography */
 /* used these colours: http://www.colourlovers.com/palette/92095/Giant_Goldfish */
 body {
-	width:312px;
 	background:#E0E4CC;
 	padding:4px;
 	font-family: Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
 	color:#222;
 	font-size:18px;
+}
+
+@media (min-width:600px) {
+	body {
+		width:400px;
+		margin:20px auto;
+		min-height:100%;
+	}
 }
 
 /* navigation */
@@ -80,11 +87,18 @@ label {
 	float:left;
 	width:50px;
 }
+
+
+fieldset .autocompleted {
+	padding-left:52px;
+}
+
 input.text,
 .autocomplete li {
 	background:#A7DBD8;
 	border:solid 1px #95C4C1;
-	width:260px;
+	width:100%;
+	margin-left:-2px;
 }
 label,
 input.text,
@@ -96,9 +110,10 @@ input.text,
 
 fieldset.radio label {
 	line-height:20px;
-	width:260px;
+	width:100%;
 }
 fieldset.radio input.radio {
+	height:20px;
 	width:50px;
 	margin:0;
 	padding:0;
@@ -106,6 +121,9 @@ fieldset.radio input.radio {
 input.radio {
 	float:left;
 	clear:left;
+}
+input.submit {
+	width:100%;
 }
 
 fieldset {
@@ -115,8 +133,6 @@ fieldset {
 /* autocomplete */
 .autocomplete {
 	position:absolute;
-	width:260px;
-	margin-left:50px;
 }
 .autocomplete ul,
 .autocomplete li {
@@ -133,7 +149,7 @@ fieldset {
 /* search results */
 table.results {
 	margin:10px 0;
-	width:312px;
+	width:100%;
 }
 table.results td {
 	padding:1px 2px;
