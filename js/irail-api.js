@@ -68,6 +68,11 @@ var IRail = (function(){
 			if (!data.connection[i].vias.via.pop) {
 				data.connection[i].vias.via = [data.connection[i].vias.via];
 			}
+		// 1.3. and delay must exist on departure and arrival
+			for (var j=0; j<data.connection[i].vias.via.length; j++) {
+				data.connection[i].vias.via[j].departure.delay = data.connection[i].vias.via[j].departure.delay || "0";
+				data.connection[i].vias.via[j].arrival.delay   = data.connection[i].vias.via[j].arrival.delay || "0";
+			}
 		}
 		// 2.  Normalize error property
 		data.error = false;
