@@ -24,29 +24,34 @@ var autoComplete = function(el, data) {
 					position--;
 				}
 			} else if (ev.keyCode && ev.keyCode==13) {
-				el.value = values[position];
+				values[position] && (el.value = values[position]);
 				values = [];
 			} else {
 				values = suggestions(ev.currentTarget.value);
 				position = 0;
 			}
-			
+
 			_.update(autocompleteId, {values:values, position:position});
+		});
+
+		// when selecting current option with enter, prevent form submit
+		_.addEvent(el, ['keydown'], function(ev) {
+			if (ev.keyCode && ev.keyCode==13 && values[position]) {
+				_.stopEvent(ev);
+			}
 		});
 
 		// select item from list
 		_.addEvent(document.getElementById(autocompleteId), 'click', function(ev) {
 			var li = _.target(ev);
 			el.value = li.innerHTML.replace(/^\s+|\s+$/g);
-			_.update(autocompleteId, {values:[], position:0});
+			hide();
 			_.stopEvent(ev);
 		});
 
 		// hide suggestionlist when clicking outside of input and list
 		_.addEvent(el, 'blur', function(ev) {
-			setTimeout(function() {
-				_.update(autocompleteId, {values:[], position:0});
-			}, 10);
+			setTimeout(hide, 10);
 		});
 	};
 	
@@ -64,7 +69,11 @@ var autoComplete = function(el, data) {
 		}
 		return suggestions;
 	};
-		
+	
+	var hide = function() {
+		_.update(autocompleteId, {values:[], position:0});
+	};
+	
 	initialize.apply(null, arguments);
 };
 
