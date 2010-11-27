@@ -23,7 +23,7 @@ var autoComplete = function(el, data) {
 				if (position > 0) {
 					position--;
 				}
-			} else if (ev.keyCode && ev.keyCode==13) {
+			} else if (ev.keyCode && (ev.keyCode==13 || ev.keyCode==9)) {
 				values[position] && (el.value = values[position]);
 				values = [];
 			} else {
@@ -36,7 +36,7 @@ var autoComplete = function(el, data) {
 
 		// when selecting current option with enter, prevent form submit
 		_.addEvent(el, ['keydown'], function(ev) {
-			if (ev.keyCode && ev.keyCode==13 && values[position]) {
+			if ((ev.keyCode==13 || ev.keyCode==9) && values[position]) {
 				_.stopEvent(ev);
 			}
 		});
