@@ -162,17 +162,23 @@ table.results td {
 	background:#5EBCCF;
 }
 
-table.results .departure td,
-table.results .via td,
-table.results .arrival td,
-table.results .detail td {
+table.results .stop td,
+table.results .trip td {
 	color:#5EBCCF;
 	background:#E0E4CC;
 }
 
-table.results .via td,
-table.results .detail td {
+table.results .trip td {
 	color:#95C4C1;
+}
+
+table.results .stop.detail td {
+	height:40px;
+	line-height:40px;
+	vertical-align:middle;
+}
+table.results .stop td.time {
+	line-height:20px;
 }
 
 table.results span.arrival:before {
@@ -182,12 +188,20 @@ table.results span.duration {
 	float:right;
 }
 
+table.results .time {
+	width:50px;
+	text-align:right;
+}
+table.results .time span {
+	display:block;
+}
+
+
 table.results span.delay {
 	color:#FA6900;
 }
 
-table.results.concise .detail,
-table.results.concise .via {
+table.results.concise .detail {
 	display:none;
 }
 

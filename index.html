@@ -111,7 +111,6 @@
 		
 		<script type="text/html" id="search_results_template">
 		<![CDATA[
-			<!-- Tables? I hear you ask. You are welcome to fix it. -->
 			<% if (error) { %>
 				
 				<%= message %>
@@ -122,7 +121,7 @@
 				<table class="results">
 					<tbody>
 						<tr>
-							<td>
+							<td colspan="3">
 								<span class="departure">
 									<%= _.partial('time', connection[i].departure) %>
 								</span>
@@ -134,15 +133,33 @@
 								</span>
 							</td>
 						</tr>
-						<tr class="departure">
+						<tr class="stop">
+							<td class="time"><%= _.t(connection[i].departure.time, 'hh:mm') %></td>
 							<td><%= _.h(connection[i].departure.station) %></td>
 						</tr>
+						
 						<% for (var j=0; j<connection[i].vias.via.length; j++) { %>
-						<tr class="via">
-							<td><%= _.h(connection[i].vias.via[j].station) %></td>
-						</tr>
+							<tr class="trip detail">
+								<td class="platform"><%= _.h((j==0 ? connection[i] : connection[i].vias.via[j]).departure.platform) %></td>
+								<td><%= _.h(connection[i].vias.via[j].vehicle.replace(/^.+\./,'')) %> &rarr; <%= _.h(connection[i].vias.via[j].station) %></td>
+							</tr>
+							<tr class="stop detail">
+								<td class="time">
+									<span><%= _.partial('time', connection[i].vias.via[j].arrival) %></span>
+									<span><%= _.partial('time', connection[i].vias.via[j].departure) %></span>
+								</td>
+								<td><%= _.h(connection[i].vias.via[j].station) %></td>
+							</tr>
 						<% } %>
-						<tr class="arrival">
+
+						<tr class="trip detail">
+							<td class="platform"><%= _.h(connection[i].arrival.platform) %></td>
+							<td><%= _.h(connection[i].arrival.vehicle.replace(/^.+\./,'')) %> &rarr; <%= _.h(connection[i].arrival.station) %></td>
+						</tr>
+						<tr class="stop">
+							<td class="time">
+								<span><%= _.partial('time', connection[i].arrival) %></span>
+							</td>
 							<td><%= _.h(connection[i].arrival.station) %></td>
 						</tr>
 					</tbody>
