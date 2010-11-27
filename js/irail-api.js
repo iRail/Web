@@ -43,7 +43,7 @@ var IRail = (function(){
 	var processResponseLiveboard = function(data) {
 		// 1.   Normalize departures:
 		// 1.1. departures object must exist
-			if (!data.departures) {
+			if (!data.departures || !data.departures.departure) {
 				data.departures = {'number':'0', 'departure':[]};
 			}
 		// 1.2. and it must have an array of departure's

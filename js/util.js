@@ -50,6 +50,7 @@ var _ = {
 	stopEvent : function(ev) {
 		ev.cancelBubble = true;
 		ev.stopPropagation && ev.stopPropagation();
+		ev.preventDefault();
 	},
 	show : function(el) {
 		el.style.display = '';
