@@ -3,11 +3,9 @@ GENERAL
  - manage location.#hash
 - search
  - swap from/to
- - add spinner
+ - add spinner for loading
 - results
- - concise/detailed view
- - destination of train
- - platform
+ - destination of train / needs to be gotten with lots of extra calls, should be added to connection data serverside
 - API
  - methods
   - stations -> to be tested
