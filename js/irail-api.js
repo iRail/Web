@@ -12,7 +12,7 @@ var IRail = (function(){
 
 	var uniqueGlobalNameCounter = {};
 	var uniqueGlobalName = function(name) {
-		uniqueGlobalNameCounter[name] = uniqueGlobalNameCounter[name] ? uniqueGlobalNameCounter[name]++ : 1;
+		uniqueGlobalNameCounter[name] = uniqueGlobalNameCounter[name] ? uniqueGlobalNameCounter[name]+1 : 1;
 		// just to be sure: find a name which is not in use yet.
 		for (; window[name+uniqueGlobalNameCounter[name]]; uniqueGlobalNameCounter[name]++) {}
 		return name+uniqueGlobalNameCounter[name];

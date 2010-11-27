@@ -16,7 +16,6 @@ GENERAL
   - when something went wrong loading the script
  - add language switch
  - split off into it's own project
- - add caching
 - buildscripts
  - concat all javascript
  - minify html
@@ -28,7 +27,6 @@ GENERAL
 DEVICE SPECIFIC
 - iphone
  - tested; works
- - viewport scaling is wonky
 - blackberry
  - untested
 - android
