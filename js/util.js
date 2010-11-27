@@ -38,7 +38,7 @@ var _ = {
 		return n;
 	},
 	h : function(text) {
-		return text.replace('&', '&amp;').replace('<', '&lt;');
+		return text.toString().replace('[object Object]', '').replace('&', '&amp;').replace('<', '&lt;');
 	},
 	update : function(name, data) {
 		var el = document.getElementById(name);
