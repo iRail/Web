@@ -66,7 +66,7 @@ var autoComplete = function(el, data) {
 
 		// hide suggestionlist when clicking outside of input and list
 		_.addEvent(el, 'blur', function(ev) {
-			setTimeout(hide, 10);
+			setTimeout(hide, 100);
 		});
 	};
 	
